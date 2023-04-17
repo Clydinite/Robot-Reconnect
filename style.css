@@ -1,0 +1,229 @@
+:root {
+    --black: #000010ff;
+    --green: #16db5bff;
+    --blue: #5b69ffff;
+    --yellow: #f5cb5cff;
+    --white: #eaebedff;
+    --gray: #323232;
+}
+
+* {
+    font-family: 'Jetbrains Mono', 'Noto Sans TC';
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+}
+
+#left {
+    width: 75%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#picture {
+    height: 50%;
+    background-color: var(--white)
+}
+
+#input-group {
+    display: flex;
+    height: 15vmin;
+}
+
+.input {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--black);
+}
+
+.slot {
+    border: 4px solid var(--blue);
+    width: 33vmin;
+    height: 8vmin;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slot>.card {
+    margin: 0;
+}
+
+/* select the .slot that is a child of #verb */
+#verb>.slot {
+    border: 4px solid var(--green);
+}
+
+#response {
+    flex-grow: 1;
+    background-color: var(--black);
+    padding: 5%;
+    padding-top: 0;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#response>p {
+    margin: 0;
+    background-color: var(--black);
+    color: var(--white);
+    font-size: 20px;
+}
+
+#right {
+    width: 25%;
+    height: 100%;
+}
+
+#sidebar {
+    height: 100%;
+    background-color: var(--gray);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+#count {
+    display: flex;
+    font-size: 20px;
+    align-items: baseline;
+    color: var(--white);
+}
+
+#card-count {
+    margin-left: 5vmin;
+}
+
+.card {
+    width: 30vmin;
+    height: 5vmin;
+    background-color: var(--blue);
+    border-radius: 3px;
+    margin: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* select elements with both the class .card and .verb */
+.card.verb {
+    background-color: var(--green);
+}
+
+.card>p {
+    font-size: 20px;
+}
+
+#unlock {
+    display: block;
+    position: absolute;
+    background-color: var(--gray);
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    border-radius: 3px;
+    border: 2px solid white;
+    overflow: scroll;
+}
+
+#unlock-display {
+    display: flex;
+    flex-direction: column;
+}
+
+#unlock-bar{
+    position: absolute;
+    top: 90%;
+}
+
+.row {
+    display: flex;
+    align-self: flex-start;
+}
+
+.row .card {
+    margin: 5px;
+}
+
+#unlock .card {
+    width: 10vmin;
+    margin: 5px;
+}
+
+#unlock-bar {
+    margin: 0;
+    display: flex;
+}
+
+#picture {
+    display: none;
+}
+
+@media screen and (max-width: 1200px) {
+    body {
+        display: flex;
+        background: var(--gray);
+        flex-direction: column;
+    }
+
+    #left {
+        width: 100%;
+    }
+
+    #right {
+        width: 100%;
+    }
+
+    #count {
+        display: none;
+    }
+
+    #sidebar {
+        display: grid;
+        height: max-content;
+        padding: 5%;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+
+    #picture {
+        display: none;
+    }
+
+    .card {
+        margin: auto;
+        width: 25vmin;
+        height: 8vmin;
+    }
+
+    .slot {
+        width: 28vmin;
+        height: 11vmin;
+    }
+
+    #unlock .card {
+        width: 15vmin
+    }
+}
