@@ -136,7 +136,7 @@ body {
 }
 
 #unlock {
-    display: block;
+    display: none;
     position: absolute;
     background-color: var(--gray);
     top: 10%;
