@@ -42,7 +42,7 @@ var location = '教室'
 var internet = false
 var serverOn = false
 var unlockedABC = false // 甲乙丙
-var gameEnd = false
+var solved = false
 var a = 1_000 // hope this doesn't break
 var b = 1_000_000
 var c = 1
@@ -73,7 +73,7 @@ confirmButton.addEventListener('click', () => {
     try {
         eval(input)
         if (a == 1 && b == 1_000 && c == 1_000_000) {
-            gameEnd = true
+            solved = true
             unlock.style.display = 'none'
             typewriter("三個環境變數的值皆已儲存到正確的位置。剎那間，電力因為過載而使教室暫時失去了電力。同時教室與外界連通的門也因為電子鎖失去電力而被開啟。")
         }
@@ -101,7 +101,6 @@ resetButton.addEventListener('click', () => {
     input = ''
 })
 
-
 // the cards in sidebar
 const sidebarCards = []
 
@@ -112,8 +111,8 @@ const playerCards = []
 let clickEventEnabled = true
 
 // player starts with these cards
+typewriter('「我」被一聲巨響嚇醒，發現自己被「移動到」一間電腦「教室」。我努力地回想我是如何到達這個地方的，但徒勞無功。我的腦海中一片空白，究竟是發生了什麼事？而遠處的一臺「電腦」，螢幕還在隱隱約約的閃爍著，似乎想表達什麼。')
 createCardElements(['我', '移動到', '教室', '電腦'])
-
 
 function createCardElements(cardArray) {
     for (const playerCard of cardArray) {
@@ -134,8 +133,14 @@ function createCardElements(cardArray) {
             card.classList.add('verb')
         }
 
+        card.classList.add('animate')
+
         card.addEventListener('click', () => {
             if (!clickEventEnabled) { return; }
+
+            card.classList.remove('animate')
+
+
             if (Array.from(sidebar.children).includes(card)) {
 
                 // move in
@@ -211,7 +216,6 @@ function createCardElements(cardArray) {
                                 if (serverOn) {
                                     typewriter("我要電腦檢視我……。「嗶—嗶—嗶嗶—」電腦：「你……你是？」")
                                 } else {
-
                                     typewriter("我要電腦檢視我，電腦並沒有回應……。")
                                 }
                             }
@@ -225,8 +229,8 @@ function createCardElements(cardArray) {
                             break
 
                         case ("我 移動到 門"):
-                            if (gameEnd) {
-                                typewriter("我移動到門前，門的電子鎖已經失效，我跑了出去……。")
+                            if (solved) {
+                                typewriter("我移動到門前，門的電子鎖已經失效，我跑了出去……。\n\n文：@elite45p_kaiyuanee、@clydinite\n程式：@clydinite、@hsiaocheng1106")
                             } else {
                                 locationChange("門", "我移動到了門邊。門的附近有許多積水，看起來年久失修……。")
                             }
@@ -447,15 +451,6 @@ function createCardElements(cardArray) {
                             }
                             break
 
-                        case ("我 開啟 瀏覽器"):
-                            if (location == "電腦") {
-                                typewriter("電腦已經接上網路了。我打開電腦上的瀏覽器，螢幕顯示出一個警告，上面寫著：「儲存空間已耗盡，並且有三個環境變數設置錯誤。」我發現這三個環境變數的「甲」、「乙」、「丙」的值設錯了，「甲」的值設成了「乙」、「乙」的值設成了「丙」、「丙」的值設成了「甲」。我必須更改它們才能繼續使用瀏覽器。")
-                            }
-                            else {
-                                wrongLocation("電腦")
-                            }
-                            break
-
                         case ("我 檢視 門"):
                             if (location == "門") {
                                 typewriter("門已經開啟了，我還不出去嗎？")
@@ -464,7 +459,7 @@ function createCardElements(cardArray) {
                                 wrongLocation("門")
                             }
                             break
-                            
+
                         default:
                             typewriter("我不了解句子的意思。")
                     }
