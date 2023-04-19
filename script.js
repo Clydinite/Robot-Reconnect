@@ -94,7 +94,10 @@ deleteButton.addEventListener('click', () => {
 })
 
 resetButton.addEventListener('click', () => {
+    let row = document.createElement('div')
+    row.className = 'row'
     unlockDisplay.innerHTML = ''
+    unlockDisplay.appendChild(row)
     a = 1_000
     b = 1
     c = 1_000_000
@@ -140,7 +143,6 @@ function createCardElements(cardArray) {
 
             card.classList.remove('animate')
 
-
             if (Array.from(sidebar.children).includes(card)) {
 
                 // move in
@@ -169,14 +171,14 @@ function createCardElements(cardArray) {
 
                         case ("我 移動到 教室"):
                             if (location != "機房") {
-                                typewriter("我本來就被困在這間教室......。")
+                                typewriter("我本來就被困在這間教室……。")
                             } else {
                                 locationChange("教室")
                             }
                             break
 
                         case ("電腦 移動到 教室"):
-                            typewriter("電腦本來就在這間教室裡......但是為什麼這臺電腦是開啟的？")
+                            typewriter("電腦本來就在這間教室裡……但是為什麼這臺電腦是開啟的？")
                             break
 
                         case ("我 移動到 電腦"):
@@ -238,7 +240,11 @@ function createCardElements(cardArray) {
 
                         case ("我 檢視 門"):
                             if (location == "門") {
-                                typewriter("一道金屬製厚重的鐵門，上面裝上了電子鎖。")
+                                if (solved) {
+                                    typewriter("門已經解鎖了，我還不出去嗎？")
+                                } else {
+                                    typewriter("一道金屬製厚重的鐵門，上面裝上了電子鎖。")
+                                }
                             }
                             else {
                                 wrongLocation("門")
@@ -422,7 +428,7 @@ function createCardElements(cardArray) {
                                                 { once: true })
                                         }, 1000);
                                     } else {
-                                        typewriter("電腦已經接上網路了。我打開電腦上的瀏覽器，螢幕顯示出一個警告，上面寫著：「儲存空間已耗盡，並且有三個環境變數設置錯誤。」我的腦中一片空白，想不起來有哪些環境變數，更不用說知道要如何設定它們了。")
+                                        typewriter("電腦已經接上網路了。我打開電腦上的瀏覽器，螢幕顯示出一個警告，上面寫著：「儲存空間已耗盡，並且有三個環境變數設置錯誤。」我的腦中一片空白，想不起來有哪些環境變數，更不用說知道要如何設定它們了。也許我該四處看看，可能有什麼線索。")
                                     }
                                 } else {
                                     typewriter("當我嘗試啟動瀏覽器時，無法連線至網際網路的錯誤訊息依然不意外地跳出，現在的我，彷彿置身於一個無法觸及的外界的荒島中。")
@@ -448,15 +454,6 @@ function createCardElements(cardArray) {
                             }
                             if (playerCards.includes("甲") && playerCards.includes("乙") && playerCards.includes("丙")) {
                                 unlockedABC = true
-                            }
-                            break
-
-                        case ("我 檢視 門"):
-                            if (location == "門") {
-                                typewriter("門已經開啟了，我還不出去嗎？")
-                            }
-                            else {
-                                wrongLocation("門")
                             }
                             break
 
