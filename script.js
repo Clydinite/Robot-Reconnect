@@ -38,7 +38,7 @@ const verbs = ['移動到', '檢視', '開啟', '接上']
 const nouns = ['我', '教室', '電腦', '資料夾', '瀏覽器', '電線', '門', '紀錄', '機房', '路由器', '主機', '紅字', '角落', '甲', '乙', '丙']
 
 // game-related variables
-var location = '教室'
+var position = '教室'
 var internet = false
 var serverOn = false
 var unlockedABC = false // 甲乙丙
@@ -170,10 +170,10 @@ function createCardElements(cardArray) {
                     switch (`${subjectText} ${verbText} ${objectText}`) {
 
                         case ("我 移動到 教室"):
-                            if (location != "機房") {
+                            if (position != "機房") {
                                 typewriter("我本來就被困在這間教室……。")
                             } else {
-                                locationChange("教室")
+                                positionChange("教室")
                             }
                             break
 
@@ -182,39 +182,39 @@ function createCardElements(cardArray) {
                             break
 
                         case ("我 移動到 電腦"):
-                            locationChange("電腦", "我「檢視」這臺電腦，電腦的主機已爬滿了藤蔓，金屬的部分也早已生鏽，沒想到還可以持續運作。我發現螢幕上有一個奇怪的紅色「資料夾」。正常來說資料夾不應該是黃色的嗎？螢幕上還有一個「瀏覽器」的捷徑，不知道會不會有網路？")
+                            positionChange("電腦", "我「檢視」這臺電腦，電腦的主機已爬滿了藤蔓，金屬的部分也早已生鏽，沒想到還可以持續運作。我發現螢幕上有一個奇怪的紅色「資料夾」。正常來說資料夾不應該是黃色的嗎？螢幕上還有一個「瀏覽器」的捷徑，不知道會不會有網路？")
                             createCardElements(['檢視', '資料夾', '瀏覽器'])
                             break
 
                         case ("我 檢視 電腦"):
-                            if (location == "電腦") {
+                            if (position == "電腦") {
                                 typewriter("電腦的主機已爬滿了藤蔓，金屬的部分也早已生鏽。螢幕上有一個紅色資料夾及瀏覽器，就是這樣。")
                             }
                             else {
-                                wrongLocation("電腦")
+                                wrongPosition("電腦")
                             }
                             break
                         case ("我 檢視 教室"):
-                            if (location != "機房") {
+                            if (position != "機房") {
                                 typewriter("我觀察四周，眾多的電腦中只有剛剛我檢視的這臺是亮著的。除此之外，我發現了一些「電線」在地上以及看似是通往外面的「門」。")
                                 createCardElements(['電線', '門'])
                             }
                             else {
-                                wrongLocation("教室")
+                                wrongPosition("教室")
                             }
                             break
 
                         case ("教室 檢視 我"):
-                            if (location != "機房") {
+                            if (position != "機房") {
                                 typewriter("我感覺到電腦教室的眾多電腦正盯著我看，彷彿他們具有生命一般……。")
                             }
                             else {
-                                wrongLocation("教室")
+                                wrongPosition("教室")
                             }
                             break
 
                         case ("電腦 檢視 我"):
-                            if (location == "電腦") {
+                            if (position == "電腦") {
                                 if (serverOn) {
                                     typewriter("我要電腦檢視我……。「嗶—嗶—嗶嗶—」電腦：「你……你是？」")
                                 } else {
@@ -222,7 +222,7 @@ function createCardElements(cardArray) {
                                 }
                             }
                             else {
-                                wrongLocation("電腦")
+                                wrongPosition("電腦")
                             }
                             break
 
@@ -234,12 +234,12 @@ function createCardElements(cardArray) {
                             if (solved) {
                                 typewriter("我移動到門前，門的電子鎖已經失效，我跑了出去……。\n\n文：@elite45p_kaiyuanee、@clydinite\n程式：@clydinite、@hsiaocheng1106")
                             } else {
-                                locationChange("門", "我移動到了門邊。門的附近有許多積水，看起來年久失修……。")
+                                positionChange("門", "我移動到了門邊。門的附近有許多積水，看起來年久失修……。")
                             }
                             break
 
                         case ("我 檢視 門"):
-                            if (location == "門") {
+                            if (position == "門") {
                                 if (solved) {
                                     typewriter("門已經解鎖了，我還不出去嗎？")
                                 } else {
@@ -247,77 +247,81 @@ function createCardElements(cardArray) {
                                 }
                             }
                             else {
-                                wrongLocation("門")
+                                wrongPosition("門")
                             }
                             break
 
                         case ("我 檢視 瀏覽器"):
-                            if (location == "電腦") {
+                            if (position == "電腦") {
                                 typewriter("這個瀏覽器看起來與我熟悉的不太一樣，這讓我感到有些困惑。當我試著「開啟」這個瀏覽器時，它顯示沒有網路的錯誤訊息，也不意外，這個地方看似荒廢許久了。")
                                 createCardElements(['開啟'])
                             }
                             else {
-                                wrongLocation("電腦")
+                                wrongPosition("電腦", "上的瀏覽器")
                             }
                             break
 
                         case ("我 開啟 門"):
-                            if (location == "門") {
+                            if (position == "門") {
                                 typewriter("我試著開啟門，但上面裝上了電子鎖，無法開啟……。")
                             }
                             else {
-                                wrongLocation("門")
+                                wrongPosition("門")
                             }
                             break
 
                         case ("我 開啟 電腦"):
-                            if (location == "電腦") {
+                            if (position == "電腦") {
                                 typewriter("電腦一直都是開啟的狀態。到底這個看似荒廢已久的地方是如何持續供給電源的？")
                             }
                             else {
-                                wrongLocation("電腦")
+                                wrongPosition("電腦")
                             }
                             break
 
                         case ("我 檢視 資料夾"):
-                            if (location == "電腦") {
+                            if (position == "電腦") {
                                 typewriter("一個詭異的紅色資料夾。好奇怪，上面居然沒有名稱，這是如何做到的？")
                             }
                             else {
-                                wrongLocation("電腦")
+                                wrongPosition("電腦", "上的資料夾")
                             }
                             break
 
                         case ("我 開啟 資料夾"):
-                            if (location == "電腦") {
+                            if (position == "電腦") {
                                 typewriter("資料夾內有一個文字檔，上面寫著一些文字：\n最近我從上一屆的幹部拿到了他們去年的會議「紀錄」，這正好是我想尋找的東西。我一直覺得社長有點怪異。每次話題只要提到「機房」就避而不談，彷彿內部有著什麼秘密般。機房不是只有教職人員才能夠進入嗎？檔案的最下方還有一個附件，上面寫著「第19屆資訊研究社會議紀錄」。")
                                 createCardElements(['紀錄', '機房'])
 
                             }
                             else {
-                                wrongLocation("電腦")
+                                wrongPosition("電腦", "上的資料夾")
                             }
                             break
 
                         case ("我 檢視 紀錄"):
-                            if (location == "電腦") {
-                                typewriter("我檢視了會議紀錄，看到了裡面的內容：\n10/05 第二次開會\n遇到的問題：未來的社課走向尚未確定。\n待辦事項：社服製作、處理機房的網頁架設問題、與他校籌辦迎新。\n\n10/19 第三次開會\n遇到的問題：社團參與度極低。\n待辦事項：向其他社團的社長詢問。\n\n咦，機房？這不是剛才檔案所寫的地方嗎？")
-                            } else if (location == "機房") {
+                            if (position == "電腦") {
+                                if (solved){
+                                    typewriter("我檢視了瀏覽紀錄，看到了裡面的內容：\n10/05 \n線段數如何實作？\n\n10/06 \nReLU函數如何使用？ \n如何刪除瀏覽紀錄？ \n\n好像也是……")
+                                } else{
+                                    typewriter("我檢視了會議紀錄，看到了裡面的內容：\n10/05 第二次開會\n遇到的問題：未來的社課走向尚未確定。\n待辦事項：社服製作、處理機房的網頁架設問題、與他校籌辦迎新。\n\n10/19 第三次開會\n遇到的問題：社團參與度極低。\n待辦事項：向其他社團的社長詢問。\n\n咦，機房？這不是剛才檔案所寫的地方嗎？")
+                                }
+                            } else if (position == "機房") {
                                 typewriter("我仔細檢視了機房內的會議紀錄，發現紀錄的具體細節幾乎都被紅筆劃掉了、許多文件也因為潮濕而無法辨識，只剩下一些零碎的線索，似乎是關於人工智慧的計畫。")
                             }
                             else {
-                                wrongLocation("電腦")
+                                wrongPosition("電腦", "上的紀錄")
                             }
                             break
 
                         case ("我 移動到 機房"):
                             typewriter("機房的門沒有上鎖，我開啟門並進入了機房。我看到了「路由器」與「主機」，地上還有散落著一地的會議紀錄。")
                             createCardElements(['路由器', '主機'])
-                            location = "機房"
+                            position = "機房"
                             break
 
                         case ("我 檢視 路由器"):
-                            if (location == "機房") {
+                            if (position == "機房") {
                                 if (internet) {
                                     typewriter("路由器的指示燈穩定的閃爍著。到底這個地方是如何持續運作的……。")
                                 } else {
@@ -326,12 +330,12 @@ function createCardElements(cardArray) {
 
                             }
                             else {
-                                wrongLocation("機房")
+                                wrongPosition("機房", "裡的路由器")
                             }
                             break
 
                         case ("我 開啟 路由器"):
-                            if (location == "機房") {
+                            if (position == "機房") {
                                 if (internet) {
                                     typewriter("路由器一直都是開啟的狀態，只是剛才電線被扯下沒有辦法正常運作。")
                                 } else {
@@ -340,21 +344,21 @@ function createCardElements(cardArray) {
 
                             }
                             else {
-                                wrongLocation("機房")
+                                wrongPosition("機房", "裡的路由器")
                             }
                             break
 
                         case ("我 檢視 主機"):
-                            if (location == "機房") {
+                            if (position == "機房") {
                                 typewriter("我檢視這臺主機的型號。就我所知，它在市面上已經停產了許久了。")
                             }
                             else {
-                                wrongLocation("機房")
+                                wrongPosition("機房", "裡的主機")
                             }
                             break
 
                         case ("我 開啟 主機"):
-                            if (location == "機房") {
+                            if (position == "機房") {
                                 if (serverOn) {
                                     typewriter("主機發出了嗶嗶聲，似乎是開啟了。")
                                 }
@@ -363,90 +367,94 @@ function createCardElements(cardArray) {
                                 }
                             }
                             else {
-                                wrongLocation("機房")
+                                wrongPosition("機房", "裡的主機")
                             }
                             break
 
                         case ("我 檢視 機房"):
-                            if (location == "機房") {
+                            if (position == "機房") {
                                 typewriter("我仔細查看了機房，就只有路由器、主機、散落著一地的會議紀錄和……咦？牆壁角落被刻上了令人不安的「紅字」。是誰做這件事的？")
                                 createCardElements(['紅字'])
                             }
                             else {
-                                wrongLocation("機房")
+                                wrongPosition("機房")
                             }
                             break
 
                         case ("我 檢視 紅字"):
-                            if (location == "機房") {
+                            if (position == "機房") {
                                 typewriter("我檢視牆壁「角落」發現的的紅字，上面寫著：\n我知道他們早晚會來這裡尋找證據，但我已經將電線扯斷，讓他們無法「接上」。你一定會比他們更早來到教室並拿走電腦上的重要資訊，請記得這些東西不能留在這裡。離開時也別忘了將這些字抹除。")
                                 createCardElements(['角落', '接上'])
                             }
                             else {
-                                wrongLocation("機房")
+                                wrongPosition("機房", "角落的紅字")
                             }
                             break
 
                         case ("電線 接上 路由器"):
-                            if (location == "機房") {
+                            if (position == "機房") {
                                 typewriter("我將電線接上了路由器，路由器的指示燈開始閃爍，這樣好像就有網路了？")
                                 internet = true
                             }
                             else {
-                                wrongLocation("機房")
+                                wrongPosition("機房", "裡的路由器")
                             }
                             break
 
                         case ("電線 接上 主機"):
-                            if (location == "機房") {
+                            if (position == "機房") {
                                 typewriter("我將電線接上了主機，主機依然沒有反應，這真的還能使用嗎？")
                                 serverOn = true
                             }
                             else {
-                                wrongLocation("機房")
+                                wrongPosition("機房", "裡的主機")
                             }
                             break
 
                         case ("我 檢視 主機"):
-                            if (location == "機房") {
+                            if (position == "機房") {
                                 typewriter("我發現這台主機接到的螢幕居然和教室那臺接到的是一樣的，這是怎麼設定的？")
                             }
                             else {
-                                wrongLocation("機房")
+                                wrongPosition("機房", "裡的主機")
                             }
                             break
 
                         case ("我 開啟 瀏覽器"):
-                            if (location == "電腦") {
-                                if (internet) {
-                                    if (unlockedABC) {
-                                        typewriter("電腦已經接上網路了。我打開電腦上的瀏覽器，螢幕顯示出一個警告，上面寫著：「儲存空間已耗盡，並且有三個環境變數設置錯誤。」我發現這三個環境變數的「甲」、「乙」、「丙」的值設錯了，「甲」的值設成了「乙」、「乙」的值設成了「丙」、「丙」的值設成了「甲」。我必須更改它們才能繼續使用瀏覽器。")
-                                        setTimeout(() => {
-                                            document.addEventListener('click', () => {
-                                                unlock.style.display = 'block'
-                                            },
-                                                { once: true })
-                                        }, 1000);
-                                    } else {
-                                        typewriter("電腦已經接上網路了。我打開電腦上的瀏覽器，螢幕顯示出一個警告，上面寫著：「儲存空間已耗盡，並且有三個環境變數設置錯誤。」我的腦中一片空白，想不起來有哪些環境變數，更不用說知道要如何設定它們了。也許我該四處看看，可能有什麼線索。")
-                                    }
+                            if (position == "電腦") {
+                                if (solved) {
+                                    typewriter("終於可以開啟瀏覽器了！可是，門已經開啟了，我最好把握機會。對了，我還在螢幕角落看到了瀏覽紀錄，不要偷窺別人隱私吧。")
                                 } else {
-                                    typewriter("當我嘗試啟動瀏覽器時，無法連線至網際網路的錯誤訊息依然不意外地跳出，現在的我，彷彿置身於一個無法觸及的外界的荒島中。")
+                                    if (internet) {
+                                        if (unlockedABC) {
+                                            typewriter("電腦已經接上網路了。我打開電腦上的瀏覽器，螢幕顯示出一個警告，上面寫著：「儲存空間已耗盡，並且有三個環境變數設置錯誤。」我發現這三個環境變數的「甲」、「乙」、「丙」的值設錯了，「甲」的值設成了「乙」、「乙」的值設成了「丙」、「丙」的值設成了「甲」。我必須更改它們才能繼續使用瀏覽器。")
+                                            setTimeout(() => {
+                                                document.addEventListener('click', () => {
+                                                    unlock.style.display = 'block'
+                                                },
+                                                    { once: true })
+                                            }, 1000);
+                                        } else {
+                                            typewriter("電腦已經接上網路了。我打開電腦上的瀏覽器，螢幕顯示出一個警告，上面寫著：「儲存空間已耗盡，並且有三個環境變數設置錯誤。」我的腦中一片空白，想不起來有哪些環境變數，更不用說知道要如何設定它們了。也許我該四處看看，可能有什麼線索。")
+                                        }
+                                    } else {
+                                        typewriter("當我嘗試啟動瀏覽器時，無法連線至網際網路的錯誤訊息依然不意外地跳出，現在的我，彷彿置身於一個無法觸及的外界的荒島中。")
+                                    }
                                 }
                             }
                             else {
-                                wrongLocation("電腦")
+                                wrongPosition("電腦", "上的瀏覽器")
                             }
                             break
 
                         case ("我 檢視 角落"):
-                            if (location == "機房") {
+                            if (position == "機房") {
                                 typewriter("路由器的角落有「甲」字卡。這不是一個詞彙，究竟有什麼作用？")
                                 createCardElements(['甲'])
-                            } else if (location == "電腦") {
+                            } else if (position == "電腦") {
                                 typewriter("電腦的角落積滿了許多灰塵。我將灰塵撥開，發現一張「乙」字卡。")
                                 createCardElements(['乙'])
-                            } else if (location == "門") {
+                            } else if (position == "門") {
                                 typewriter("門的角落有許多積水，水中的「丙」字卡若隱若現，我將它撿了起來。")
                                 createCardElements(['丙'])
                             } else {
@@ -474,26 +482,26 @@ function createCardElements(cardArray) {
     cardCount.innerText = `${playerCards.length}/${nouns.length + verbs.length}`
 }
 
-function wrongLocation(location) {
-    if (location == "教室" || location == "機房") {
-        typewriter(`我不在${location}裡面，不能檢視${location}。`)
+function wrongPosition(position, detail = "") {
+    if (position == "教室" || position == "機房") {
+        typewriter(`我不在${position}裡面，不能檢視${position}${detail}。`)
     } else {
-        typewriter(`我不在${location}旁邊，不能檢視${location}。`)
+        typewriter(`我不在${position}旁邊，不能檢視${position}${detail}。`)
     }
 }
 
-function locationChange(newLocation, textOverride) {
+function positionChange(newPosition, textOverride) {
     if (textOverride) {
         typewriter(textOverride)
     } else {
 
-        if (location == "教室" || location == "機房") {
-            typewriter(`我從${location}裡面移動到了${newLocation}。`)
+        if (position == "教室" || position == "機房") {
+            typewriter(`我從${position}裡面移動到了${newPosition}。`)
         } else {
-            typewriter(`我從${location}旁邊移動到了${newLocation}。`)
+            typewriter(`我從${position}旁邊移動到了${newPosition}。`)
         }
     }
-    location = newLocation
+    position = newPosition
 }
 
 function typewriter(text) {

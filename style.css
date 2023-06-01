@@ -145,14 +145,19 @@ body {
 #unlock {
     display: none;
     position: absolute;
-    background-color: var(--gray);
+    background-color: var(--black);
     top: 10%;
     left: 10%;
     width: 80%;
     height: 80%;
-    border-radius: 3px;
+    padding: 5%;
+    border-radius: 5px;
     border: 2px solid white;
     overflow: scroll;
+}
+
+.unlock-text{
+    color: var(--white);
 }
 
 #unlock-display {
@@ -162,7 +167,7 @@ body {
 
 #unlock-bar {
     position: absolute;
-    top: 90%;
+    bottom: 5%;
 }
 
 .row {
